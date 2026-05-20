@@ -1,0 +1,27 @@
+schema: step-by-step
+
+context: |
+  Генерировать только specs и design.
+  Остальное — мусор, не генерировать.
+
+  Структура:
+  - openspec/changes/<id>/design.md
+  - openspec/changes/<id>/specs/api/<domain>/<name>/spec.md
+  - openspec/changes/<id>/specs/db/schema.md (все таблицы в одном файле)
+  - openspec/changes/<id>/specs/kafka/<domain>/<topic_or_service>/spec.md
+
+rules:
+  specs:
+    - API описывать строго пошаговым сценарием из schema
+    - Kafka описывать строго пошаговым сценарием из schema
+    - Все таблицы БД описывать в одном файле specs/db/schema.md
+    - Каждая таблица — отдельная секция внутри schema.md
+    - Каждая проверка — отдельный пункт с веткой "если нет"
+    - Каждая внешняя зависимость — отдельный пункт с ветками успех/ошибка
+    - Для каждой ветки обязательно указать результат (ответ / offset-решение)
+    - БД-спеки — один файл: specs/db/schema.md
+    - Kafka-спеки — отдельные файлы: specs/kafka/<domain>/<name>/spec.md
+  design:
+    - Только design.md
+    - Объяснить почему используем пошаговый формат
+    - Определить структуру папок и именование доменов
